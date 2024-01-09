@@ -46,9 +46,6 @@
   endif
 -%}
 
-<h1>KWEK</h1>
-<!-- product-list.liquid -->
-
 <div class="product-list">
   <h2>{{ section.settings.section_title }}</h2>
   
@@ -66,16 +63,29 @@
 
 {% schema %}
 {
-  "name": "All Product",
-  "tag": "section",
-  "disabled_on": {
-    "groups": ["header", "footer"]
-  },
-  "settings": [],
+    "name": "Product List",
+  "settings": [
+    {
+      "type": "text",
+      "label": "Titre de la section",
+      "id": "section_title",
+      "default": "Liste de produits"
+    },
+    {
+      "type": "checkbox",
+      "label": "Afficher le prix",
+      "id": "show_price",
+      "default": true
+    }
+    // Ajoutez d'autres options de configuration selon vos besoins
+  ],
   "presets": [
     {
-      "name": "All Product"
-    }
-  ]
+      "name": "Default",
+      "category": "Custom"
+  
 }
+]
+}
+
 {% endschema %}
