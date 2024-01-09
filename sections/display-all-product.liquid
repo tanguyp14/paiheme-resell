@@ -3,8 +3,6 @@
 
 {%- endstyle -%}
 
-
-
 <div class="product-list">
   <h2>{{ section.settings.section_title }}</h2>
   
@@ -20,15 +18,23 @@
           </h5>
 
           {% if product.variants.size > 1 %}
-            <select class="variant-dropdown">
-              {% for variant in product.variants %}
-                <option value="{{ variant.price }}">
-                  {{ variant.title }} - {{ variant.price | money }}
-                </option>
-              {% endfor %}
-            </select>
+            <form action="/cart/add" method="post" enctype="multipart/form-data" class="variant-form">
+              <select class="variant-dropdown" name="id">
+                {% for variant in product.variants %}
+                  <option value="{{ variant.id }}">
+                    {{ variant.title }} - {{ variant.price | money }}
+                  </option>
+                {% endfor %}
+              </select>
+              <input type="hidden" name="quantity" value="1">
+              <button type="submit" class="add-to-cart-btn">Ajouter au panier</button>
+            </form>
           {% else %}
-            <p class="card-text">{{ product.price | money }}</p>
+            <form action="/cart/add" method="post" enctype="multipart/form-data" class="variant-form">
+              <input type="hidden" name="id" value="{{ product.variants[0].id }}">
+              <input type="hidden" name="quantity" value="1">
+              <button type="submit" class="add-to-cart-btn">Ajouter au panier</button>
+            </form>
           {% endif %}
 
           <!-- Ajoutez d'autres informations sur le produit ici -->
