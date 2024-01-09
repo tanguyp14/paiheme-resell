@@ -3,19 +3,27 @@
 {%- endstyle -%}
 
 
+<!-- product-list.liquid -->
+
 <div class="product-list">
   <h2>{{ section.settings.section_title }}</h2>
   
   {% for product in collections.all.products %}
     <div class="product-item">
-      <h3>{{ product.title }}</h3>
-      {% if section.settings.show_price %}
-        <p>{{ product.price | money }}</p>
-      {% endif %}
-      <!-- Ajoutez d'autres informations sur le produit ici -->
+      <div class="card">
+        <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title">{{ product.title }}</h5>
+          {% if section.settings.show_price %}
+            <p class="card-text">{{ product.price | money }}</p>
+          {% endif %}
+          <!-- Ajoutez d'autres informations sur le produit ici -->
+        </div>
+      </div>
     </div>
   {% endfor %}
 </div>
+
 
 
 {% schema %}
