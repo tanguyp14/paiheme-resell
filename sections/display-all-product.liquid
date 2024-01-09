@@ -3,6 +3,10 @@
 
 {%- endstyle -%}
 
+<!-- product-list.liquid -->
+
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+
 <div class="product-list">
   <h2>{{ section.settings.section_title }}</h2>
   
@@ -18,7 +22,7 @@
           </h5>
 
           {% if product.variants.size > 1 %}
-            <form action="/cart/add" method="post" enctype="multipart/form-data" class="variant-form">
+            <form class="variant-form">
               <select class="variant-dropdown" name="id">
                 {% for variant in product.variants %}
                   <option value="{{ variant.id }}">
@@ -27,13 +31,13 @@
                 {% endfor %}
               </select>
               <input type="hidden" name="quantity" value="1">
-              <button type="submit" class="add-to-cart-btn">Ajouter au panier</button>
+              <button type="button" class="add-to-cart-btn">Ajouter au panier</button>
             </form>
           {% else %}
-            <form action="/cart/add" method="post" enctype="multipart/form-data" class="variant-form">
+            <form class="variant-form">
               <input type="hidden" name="id" value="{{ product.variants[0].id }}">
               <input type="hidden" name="quantity" value="1">
-              <button type="submit" class="add-to-cart-btn">Ajouter au panier</button>
+              <button type="button" class="add-to-cart-btn">Ajouter au panier</button>
             </form>
           {% endif %}
 
@@ -43,6 +47,39 @@
     </div>
   {% endfor %}
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+
+    addToCartButtons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        var form = button.closest('.variant-form');
+        var formData = new FormData(form);
+
+        fetch('/cart/add.js', {
+          method: 'POST',
+          body: formData,
+          credentials: 'same-origin',
+          headers: {
+            'Accept': 'application/json',
+            'X-Requested-With': 'xmlhttprequest'
+          }
+        })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          console.log(data); // Vous pouvez traiter les données de réponse ici
+        })
+        .catch(function (error) {
+          console.error('Error:', error);
+        });
+      });
+    });
+  });
+</script>
+
 
 
 
