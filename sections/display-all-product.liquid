@@ -18,9 +18,19 @@
           <h5 class="card-title">
             <a href="{{ product.url }}">{{ product.title }}</a>
           </h5>
-          {% if section.settings.show_price %}
+
+          {% if product.variants.size > 1 %}
+            <select class="variant-dropdown">
+              {% for variant in product.variants %}
+                <option value="{{ variant.price }}">
+                  {{ variant.title }} - {{ variant.price | money }}
+                </option>
+              {% endfor %}
+            </select>
+          {% else %}
             <p class="card-text">{{ product.price | money }}</p>
           {% endif %}
+
           <!-- Ajoutez d'autres informations sur le produit ici -->
         </div>
       </div>
