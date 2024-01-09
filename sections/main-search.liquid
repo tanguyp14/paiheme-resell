@@ -290,7 +290,7 @@
                       %}
                       
                       {% if item.available %}
-                        <form class="variant-form">
+                        <form class="variant-form" onsubmit="return addToCart(event, '{{ item.variants[0].id }}')">
                           <label for="variant-dropdown">Sélectionnez une variante :</label>
                           <select id="variant-dropdown" name="id">
                             {% for variant in item.variants %}
@@ -298,13 +298,56 @@
                             {% endfor %}
                           </select>
                           <input type="hidden" name="quantity" value="1">
-                          <button type="button" class="add-to-cart-btn">Ajouter au panier</button>
+                          <button type="submit" class="add-to-cart-btn">Ajouter au panier</button>
                         </form>
                       {% else %}
                         <p>Épuisé</p>
                       {% endif %}
                       
-
+                      <script>
+                        function addToCart(event, variantId) {
+                          event.preventDefault();
+                      
+                          var form = event.target;
+                          var formData = new FormData(form);
+                      
+                          fetch('/cart/add.js', {
+                            method: 'POST',
+                            body: formData,
+                            credentials: 'same-origin',
+                            headers: {
+                              'Accept': 'application/json',
+                              'X-Requested-With': 'xmlhttprequest'
+                            }
+                          })
+                          .then(function (response) {
+                            return response.json();
+                          })
+                          .then(function (data) {
+                            console.log(data); // Vous pouvez traiter les données de réponse ici
+                      
+                            // Mettez à jour visuellement les informations du panier ici (optionnel)
+                            fetch('/cart.js')
+                              .then(function (response) {
+                                return response.json();
+                              })
+                              .then(function (cartData) {
+                                // Mettez à jour visuellement les informations du panier, par exemple, le nombre d'articles dans le panier
+                                console.log(cartData);
+                              })
+                              .catch(function (error) {
+                                console.error('Error fetching cart:', error);
+                              });
+                          })
+                          .catch(function (error) {
+                            console.error('Error adding to cart:', error);
+                          });
+                      
+                          return false;
+                        }
+                      </script>
+                      
+                        
                       {%- when 'article' -%}
                         {% render 'article-card',
                           article: item,
