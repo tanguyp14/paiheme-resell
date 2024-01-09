@@ -273,16 +273,31 @@
                   >
                     {%- case item.object_type -%}
                       {%- when 'product' -%}
-                        {%- capture product_settings -%}{%- if section.settings.product_show_vendor -%}vendor,{%- endif -%}title,price{%- endcapture -%}
-                        {% render 'card-product',
-                          card_product: item,
-                          media_aspect_ratio: section.settings.image_ratio,
-                          image_shape: section.settings.image_shape,
-                          show_secondary_image: section.settings.show_secondary_image,
-                          show_vendor: section.settings.show_vendor,
-                          show_rating: section.settings.show_rating,
-                          lazy_load: lazy_load
-                        %}
+                        {%- capture product_settings -%}
+                        {%- if section.settings.product_show_vendor -%}vendor,{%- endif -%}
+                        title,price
+                      {%- endcapture -%}
+                      
+                      {% render 'card-product',
+                        card_product: item,
+                        media_aspect_ratio: section.settings.image_ratio,
+                        image_shape: section.settings.image_shape,
+                        show_secondary_image: section.settings.show_secondary_image,
+                        show_vendor: section.settings.show_vendor,
+                        show_rating: section.settings.show_rating,
+                        lazy_load: lazy_load
+                      %}
+                      
+                      {% if item.available %}
+                        <form class="variant-form">
+                          <input type="hidden" name="id" value="{{ item.variants[0].id }}">
+                          <input type="hidden" name="quantity" value="1">
+                          <button type="button" class="add-to-cart-btn">Ajouter au panier</button>
+                        </form>
+                      {% else %}
+                        <p>Épuisé</p>
+                      {% endif %}
+                      
                       {%- when 'article' -%}
                         {% render 'article-card',
                           article: item,
