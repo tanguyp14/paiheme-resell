@@ -4,7 +4,7 @@
   --alpha-link: 0.85;
   --alpha-badge-border: 0.1;
 }
-body{
+.body{
   background-color: blue !important;
 }
 .product-card-wrapper .card,
