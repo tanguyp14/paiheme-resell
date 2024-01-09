@@ -1,7 +1,5 @@
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
-
-{{ 'component-slider.css' | asset_url | stylesheet_tag }}
 {{ 'template-collection.css' | asset_url | stylesheet_tag }}
 
 {% if section.settings.image_shape == 'blob' %}
@@ -49,6 +47,22 @@
 -%}
 
 <h1>KWEK</h1>
+<!-- product-list.liquid -->
+
+<div class="product-list">
+  <h2>{{ section.settings.section_title }}</h2>
+  
+  {% for product in collections.all.products %}
+    <div class="product-item">
+      <h3>{{ product.title }}</h3>
+      {% if section.settings.show_price %}
+        <p>{{ product.price | money }}</p>
+      {% endif %}
+      <!-- Ajoutez d'autres informations sur le produit ici -->
+    </div>
+  {% endfor %}
+</div>
+
 
 {% schema %}
 {
