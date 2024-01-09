@@ -338,6 +338,26 @@
 
     return false;
   }
+
+.then(function (data) {
+  console.log(data); // Vous pouvez traiter les données de réponse ici
+
+  // Mettez à jour visuellement les informations du mini-panier ici (optionnel)
+  fetch('/cart.js')
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (cartData) {
+      // Mettez à jour visuellement le cart-count-bubble
+      var cartCountBubble = document.getElementById('cart-count-bubble');
+      if (cartCountBubble) {
+        cartCountBubble.innerText = cartData.item_count;
+      }
+    })
+    .catch(function (error) {
+      console.error('Error fetching cart:', error);
+    });
+})
 </script>
 
                       
