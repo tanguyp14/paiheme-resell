@@ -93,6 +93,14 @@
         });
     });
   });
+  function updateCartCountBubble(count) {
+    // Mettez à jour le contenu de toutes les balises ayant la classe "cart-count-bubble"
+    var cartCountBubbles = document.querySelectorAll('.cart-count-bubble');
+    
+    cartCountBubbles.forEach(function (bubble) {
+      bubble.innerText = count;
+    });
+  }
 });
 </script>
 
