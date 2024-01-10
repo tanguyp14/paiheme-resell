@@ -273,17 +273,17 @@
                   >
                     {%- case item.object_type -%}
                       {%- when 'product' -%}
-
                         {% for item in search.results %}
                           <div class="search-item">
                             <!-- Autres éléments d'affichage du produit -->
-                        
                             {% if item.available %}
                               <form class="variant-form" onsubmit="return addToCart(event, '{{ item.id }}')">
                                 <label for="variant-dropdown-{{ item.id }}">Sélectionnez une variante :</label>
                                 <select id="variant-dropdown-{{ item.id }}" name="id">
                                   {% for variant in item.variants %}
-                                    <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
+                                    <option value="{{ variant.id }}">
+                                      {{ variant.title }} - {{ variant.price | money }}
+                                    </option>
                                   {% endfor %}
                                 </select>
                                 <input type="hidden" name="quantity" value="1">
@@ -295,73 +295,71 @@
                           </div>
                         {% endfor %}
                         <script>
-  function addToCart(event, productId) {
-    event.preventDefault();
+                            function addToCart(event, productId) {
+                              event.preventDefault();
 
-    var form = event.target;
-    var formData = new FormData(form);
+                              var form = event.target;
+                              var formData = new FormData(form);
 
-    fetch('/cart/add.js', {
-      method: 'POST',
-      body: formData,
-      credentials: 'same-origin',
-      headers: {
-        'Accept': 'application/json',
-        'X-Requested-With': 'xmlhttprequest'
-      }
-    })
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      console.log(data); // Vous pouvez traiter les données de réponse ici
+                              fetch('/cart/add.js', {
+                                method: 'POST',
+                                body: formData,
+                                credentials: 'same-origin',
+                                headers: {
+                                  'Accept': 'application/json',
+                                  'X-Requested-With': 'xmlhttprequest'
+                                }
+                              })
+                              .then(function (response) {
+                                return response.json();
+                              })
+                              .then(function (data) {
+                                console.log(data); // Vous pouvez traiter les données de réponse ici
 
-      // Mettez à jour visuellement les informations du mini-panier ici (optionnel)
-      fetch('/cart.js')
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (cartData) {
-          // Mettez à jour visuellement les informations du mini-panier, par exemple,
-          // le nombre d'articles dans le panier dans l'icône du panier
-          console.log(cartData);
-          // Vous devrez probablement ajouter du code ici pour mettre à jour
-          // visuellement les informations du mini-panier sur votre page.
-        })
-        .catch(function (error) {
-          console.error('Error fetching cart:', error);
-        });
-    })
-    .catch(function (error) {
-      console.error('Error adding to cart:', error);
-    });
+                                // Mettez à jour visuellement les informations du mini-panier ici (optionnel)
+                                fetch('/cart.js')
+                                  .then(function (response) {
+                                    return response.json();
+                                  })
+                                  .then(function (cartData) {
+                                    // Mettez à jour visuellement les informations du mini-panier, par exemple,
+                                    // le nombre d'articles dans le panier dans l'icône du panier
+                                    console.log(cartData);
+                                    // Vous devrez probablement ajouter du code ici pour mettre à jour
+                                    // visuellement les informations du mini-panier sur votre page.
+                                  })
+                                  .catch(function (error) {
+                                    console.error('Error fetching cart:', error);
+                                  });
+                              })
+                              .catch(function (error) {
+                                console.error('Error adding to cart:', error);
+                              });
 
-    return false;
-  }
+                              return false;
+                            }
 
-.then(function (data) {
-  console.log(data); // Vous pouvez traiter les données de réponse ici
+                          .then(function (data) {
+                            console.log(data); // Vous pouvez traiter les données de réponse ici
 
-  // Mettez à jour visuellement les informations du mini-panier ici (optionnel)
-  fetch('/cart.js')
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (cartData) {
-      // Mettez à jour visuellement le cart-count-bubble
-      var cartCountBubble = document.getElementById('cart-count-bubble');
-      if (cartCountBubble) {
-        cartCountBubble.innerText = cartData.item_count;
-      }
-    })
-    .catch(function (error) {
-      console.error('Error fetching cart:', error);
-    });
-})
-</script>
+                            // Mettez à jour visuellement les informations du mini-panier ici (optionnel)
+                            fetch('/cart.js')
+                              .then(function (response) {
+                                return response.json();
+                              })
+                              .then(function (cartData) {
+                                // Mettez à jour visuellement le cart-count-bubble
+                                var cartCountBubble = document.getElementById('cart-count-bubble');
+                                if (cartCountBubble) {
+                                  cartCountBubble.innerText = cartData.item_count;
+                                }
+                              })
+                              .catch(function (error) {
+                                console.error('Error fetching cart:', error);
+                              });
+                          })
+                        </script>
 
-                      
-                        
                       {%- when 'article' -%}
                         {% render 'article-card',
                           article: item,

@@ -1,6 +1,5 @@
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {%- style -%}
-
 {%- endstyle -%}
 
 <!-- product-list.liquid -->
@@ -9,7 +8,7 @@
 
 <div class="product-list">
   <h2>{{ section.settings.section_title }}</h2>
-  
+
   {% for product in collections.all.products %}
     <div class="product-item">
       <div class="card">
@@ -25,9 +24,7 @@
             <form class="variant-form">
               <select class="variant-dropdown" name="id">
                 {% for variant in product.variants %}
-                  <option value="{{ variant.id }}">
-                    {{ variant.title }} - {{ variant.price | money }}
-                  </option>
+                  <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
                 {% endfor %}
               </select>
               <input type="hidden" name="quantity" value="1">
@@ -62,31 +59,28 @@
           body: formData,
           credentials: 'same-origin',
           headers: {
-            'Accept': 'application/json',
-            'X-Requested-With': 'xmlhttprequest'
-          }
+            Accept: 'application/json',
+            'X-Requested-With': 'xmlhttprequest',
+          },
         })
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (data) {
-          console.log(data); // Vous pouvez traiter les données de réponse ici
-        })
-        .catch(function (error) {
-          console.error('Error:', error);
-        });
+          .then(function (response) {
+            alert('Ajouté au panier !');
+            return response.json();
+          })
+          .then(function (data) {
+            console.log(data); // Vous pouvez traiter les données de réponse ici
+          })
+          .catch(function (error) {
+            console.error('Error:', error);
+          });
       });
     });
   });
 </script>
 
-
-
-
-
 {% schema %}
 {
-    "name": "Product List",
+  "name": "Product List",
   "settings": [
     {
       "type": "text",
@@ -100,15 +94,12 @@
       "id": "show_price",
       "default": true
     }
-    // Ajoutez d'autres options de configuration selon vos besoins
   ],
   "presets": [
     {
       "name": "Default",
       "category": "Custom"
-  
+    }
+  ]
 }
-]
-}
-
 {% endschema %}
