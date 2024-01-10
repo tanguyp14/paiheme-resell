@@ -86,7 +86,7 @@
           .then(function (data) {
             // Mettez à jour le nombre d'articles dans le panier visuellement
             console.log(data);
-            updateCartCountBubble(data.item_count);
+            updateCartCountBubble(data.quantity);
 
             // Vous pouvez également effectuer d'autres actions ici en fonction de vos besoins
           })
