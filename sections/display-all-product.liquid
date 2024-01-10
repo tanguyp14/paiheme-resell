@@ -82,26 +82,30 @@
         },
       })
         .then(function (response) {
-          alert('Ajouté au panier !');
           return response.json();
         })
         .then(function (data) {
-          console.log(data); // Vous pouvez traiter les données de réponse ici
+          // Mettez à jour le nombre d'articles dans le panier visuellement
+          updateCartCountBubble(data.item_count);
+          
+          // Vous pouvez également effectuer d'autres actions ici en fonction de vos besoins
         })
         .catch(function (error) {
           console.error('Error:', error);
         });
     });
   });
+
   function updateCartCountBubble(count) {
     // Mettez à jour le contenu de toutes les balises ayant la classe "cart-count-bubble"
     var cartCountBubbles = document.querySelectorAll('.cart-count-bubble');
-    
+
     cartCountBubbles.forEach(function (bubble) {
       bubble.innerText = count;
     });
   }
 });
+
 </script>
 
 {% schema %}
