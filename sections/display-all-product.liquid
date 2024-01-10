@@ -34,7 +34,16 @@
             <form class="variant-form">
               <input type="hidden" name="id" value="{{ product.variants[0].id }}">
               <input type="hidden" name="quantity" value="1">
-              <button type="button" class="add-to-cart-btn">Ajouter au panier</button>
+              {% if product.available %}
+                <button type="button" class="btn product-form__cart-submit add-to-cart-btn" data-action="add-to-cart">
+                  <span class="btn__text">{{ 'products.product.add_to_cart' | t }}</span>
+                </button>
+              {% else %}
+                <span class="btn product-form__cart-submit btn--sold-out">
+                  {{ 'products.product.sold_out' | t }}
+                </span>
+              {% endif %}
+              
             </form>
           {% endif %}
 
