@@ -83,11 +83,20 @@
             return response.json();
           })
           .then(function (data) {
-            // Mettez à jour le nombre d'articles dans le panier visuellement
-            console.log('Data :',data);
-            updateCartCountBubble(data.item_count);
+            // Après avoir ajouté le produit au panier, effectuez une nouvelle requête pour obtenir les informations du panier
+            fetch('/cart.js')
+              .then(function (response) {
+                return response.json();
+              })
+              .then(function (cartData) {
+                // Mettez à jour le nombre d'articles dans le panier visuellement
+                updateCartCountBubble(cartData.item_count);
 
-            // Vous pouvez également effectuer d'autres actions ici en fonction de vos besoins
+                // Vous pouvez également effectuer d'autres actions ici en fonction de vos besoins
+              })
+              .catch(function (error) {
+                console.error('Error fetching cart:', error);
+              });
           })
           .catch(function (error) {
             console.error('Error:', error);
@@ -95,16 +104,15 @@
       });
     });
 
-    
-  function updateCartCountBubble(count) {
-    // Mettez à jour le contenu de la balise ayant la classe "cart-count-bubble"
-    var cartCountBubble = document.querySelector('.cart-count-bubble');
+    function updateCartCountBubble(count) {
+      // Mettez à jour le contenu de la balise ayant la classe "cart-count-bubble"
+      var cartCountBubble = document.querySelector('.cart-count-bubble');
 
-    if (cartCountBubble) {
-      cartCountBubble.querySelector('span[aria-hidden="true"]').innerText = count;
-      cartCountBubble.querySelector('span.visually-hidden').innerText = count + ' items';
+      if (cartCountBubble) {
+        cartCountBubble.querySelector('span[aria-hidden="true"]').innerText = count;
+        cartCountBubble.querySelector('span.visually-hidden').innerText = count + ' items';
+      }
     }
-  }
   });
 </script>
 
