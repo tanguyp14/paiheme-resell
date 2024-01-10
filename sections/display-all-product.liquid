@@ -65,35 +65,35 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    var addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+  var addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
 
-    addToCartButtons.forEach(function (button) {
-      button.addEventListener('click', function () {
-        var form = button.closest('.variant-form');
-        var formData = new FormData(form);
+  addToCartButtons.forEach(function (button) {
+    button.addEventListener('click', function () {
+      var form = button.closest('.variant-form');
+      var formData = new FormData(form);
 
-        fetch('/cart/add.js', {
-          method: 'POST',
-          body: formData,
-          credentials: 'same-origin',
-          headers: {
-            Accept: 'application/json',
-            'X-Requested-With': 'xmlhttprequest',
-          },
+      fetch('/cart/add.js', {
+        method: 'POST',
+        body: formData,
+        credentials: 'same-origin',
+        headers: {
+          Accept: 'application/json',
+          'X-Requested-With': 'xmlhttprequest',
+        },
+      })
+        .then(function (response) {
+          alert('Ajouté au panier !');
+          return response.json();
         })
-          .then(function (response) {
-            alert('Ajouté au panier !');
-            return response.json();
-          })
-          .then(function (data) {
-            console.log(data); // Vous pouvez traiter les données de réponse ici
-          })
-          .catch(function (error) {
-            console.error('Error:', error);
-          });
-      });
+        .then(function (data) {
+          console.log(data); // Vous pouvez traiter les données de réponse ici
+        })
+        .catch(function (error) {
+          console.error('Error:', error);
+        });
     });
   });
+});
 </script>
 
 {% schema %}
