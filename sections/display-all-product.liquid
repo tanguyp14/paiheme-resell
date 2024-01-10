@@ -94,14 +94,16 @@
       });
     });
 
-    function updateCartCountBubble(count) {
-      // Mettez à jour le contenu de toutes les balises ayant la classe "cart-count-bubble"
-      var cartCountBubbles = document.getElementsByClassName('cart-count-bubble');
+    
+  function updateCartCountBubble(count) {
+    // Mettez à jour le contenu de la balise ayant la classe "cart-count-bubble"
+    var cartCountBubble = document.querySelector('.cart-count-bubble');
 
-      for (var i = 0; i < cartCountBubbles.length; i++) {
-        cartCountBubbles[i].innerText = count;
-      }
+    if (cartCountBubble) {
+      cartCountBubble.querySelector('span[aria-hidden="true"]').innerText = count;
+      cartCountBubble.querySelector('span.visually-hidden').innerText = count + ' items';
     }
+  }
   });
 </script>
 
