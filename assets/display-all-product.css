@@ -15,3 +15,8 @@
 .product-item{
     max-width: 90vw;
 }
+.image-product{
+    display: flex;
+    margin: auto;
+    padding: 5px;
+}

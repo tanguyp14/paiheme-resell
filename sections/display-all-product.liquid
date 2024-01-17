@@ -8,7 +8,7 @@
   {% for product in collections.all.products %}
     <div class="product-item">
       <div class="card">
-        <a href="{{ product.url }}">
+        <a class="image-product" href="{{ product.url }}">
           <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}" class="card-img-top">
         </a>
         <div class="card-body">
