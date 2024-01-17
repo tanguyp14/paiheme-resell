@@ -6,3 +6,8 @@
     display: grid;
     grid-template-columns: 30% 70%;
 }
+.product-list .card .card-body{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
