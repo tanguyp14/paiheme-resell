@@ -62,48 +62,52 @@
                       {{ order.name }}
                     </a>
 
-                    {% comment %} Custom Facture avec Fichier Shopify
+                    {% comment %}
+                      Custom Facture avec Fichier Shopify
+                      {% assign orderNumber = order.name | remove: 'Order number #' %}
+                      {% assign pdfUrl = 'https://cdn.shopify.com/s/files/1/0643/2381/3566/files/'
+                        | append: orderNumber
+                        | append: '.pdf'
+                      %}
+
+                      <a href="{{ pdfUrl }}">Téléchargez votre facture</a>
+                    {% endcomment %}
+
+                    {% comment %} Custom Facture avec Fichier Shopify {% endcomment %}
                     {% assign orderNumber = order.name | remove: 'Order number #' %}
                     {% assign pdfUrl = 'https://cdn.shopify.com/s/files/1/0643/2381/3566/files/'
                       | append: orderNumber
                       | append: '.pdf'
                     %}
 
-                    <a href="{{ pdfUrl }}">Téléchargez votre facture</a> {% endcomment %}
+                    <a href="{{ pdfUrl }}" id="downloadLink">Téléchargez votre facture</a>
+                    <p id="creationMessage" style="display: none;">Facture en cours d'édition</p>
 
+                    <script>
+                      function checkFileExists(url, callback) {
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('HEAD', url, true);
+                        xhr.onreadystatechange = function () {
+                          if (xhr.readyState == 4) {
+                            callback(xhr.status == 200);
+                          }
+                        };
+                        xhr.send();
+                      }
 
-                    {% comment %} Custom Facture avec Fichier Shopify {% endcomment %}
-{% assign orderNumber = order.name | remove: 'Order number #' %}
-{% assign pdfUrl = 'https://cdn.shopify.com/s/files/1/0643/2381/3566/files/' | append: orderNumber | append: '.pdf' %}
+                      checkFileExists('{{ pdfUrl }}', function (exists) {
+                        var downloadLink = document.getElementById('downloadLink');
+                        var creationMessage = document.getElementById('creationMessage');
 
-<a href="{{ pdfUrl }}" id="downloadLink">Téléchargez votre facture</a>
-<p id="creationMessage" style="display: none;">Facture en cours d'édition</p>
+                        if (exists) {
+                          downloadLink.style.display = 'block';
+                        } else {
+                          creationMessage.style.display = 'block';
+                          downloadLink.style.display = 'none';
 
-<script>
-  function checkFileExists(url, callback) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('HEAD', url, true);
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState == 4) {
-        callback(xhr.status == 200);
-      }
-    };
-    xhr.send();
-  }
-
-  checkFileExists('{{ pdfUrl }}', function(exists) {
-    var downloadLink = document.getElementById('downloadLink');
-    var creationMessage = document.getElementById('creationMessage');
-
-    if (exists) {
-      downloadLink.style.display = 'block';
-    } else {
-      creationMessage.style.display = 'block';
-    }
-  });
-</script>
-
-
+                        }
+                      });
+                    </script>
                   </td>
                   <td headers="RowOrder ColumnDate" role="cell" data-label="{{ 'customer.orders.date' | t }}">
                     {{ order.created_at | time_tag: format: 'date' }}
