@@ -75,9 +75,6 @@
                     {% else %}
                       Facture en cours de création
                     {% endif %}
-
-                    {% comment %} <a href="https://cdn.shopify.com/s/files/1/0643/2381/3566/files/{{ 'customer.orders.order_number_link' | t: number: order.name | remove: "Order number "}}.pdf">Téléchargez votre facture </a> {% endcomment %}
-                    {% comment %} https://cdn.shopify.com/s/files/1/0643/2381/3566/files/PNG_Mock-Up.jpg {% endcomment %}
                   </td>
                   <td headers="RowOrder ColumnDate" role="cell" data-label="{{ 'customer.orders.date' | t }}">
                     {{ order.created_at | time_tag: format: 'date' }}
