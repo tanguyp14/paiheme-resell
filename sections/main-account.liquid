@@ -83,7 +83,7 @@
                     <a href="{{ pdfUrl }}" id="downloadLink">Téléchargez votre facture</a>
                     <p id="creationMessage" style="display: none;">Facture en cours d'édition</p>
 
-                    <script>
+                    {% comment %} <script>
                       function checkFileExists(url, callback) {
                         var xhr = new XMLHttpRequest();
                         xhr.open('HEAD', url, true);
@@ -106,9 +106,9 @@
                           downloadLink.style.display = 'none';
                         }
                       });
-                    </script>
+                    </script> {% endcomment %}
 
-                    
+
                   </td>
                   <td headers="RowOrder ColumnDate" role="cell" data-label="{{ 'customer.orders.date' | t }}">
                     {{ order.created_at | time_tag: format: 'date' }}
