@@ -61,7 +61,23 @@
                     >
                       {{ order.name }}
                     </a>
-                    <a href="https://cdn.shopify.com/s/files/1/0643/2381/3566/files/{{ 'customer.orders.order_number_link' | t: number: order.name | remove: "Order number "}}.pdf">Téléchargez votre facture </a>
+
+                    {% assign orderNumber = 'customer.orders.order_number_link'
+                      | t: number: order.name
+                      | remove: 'Order number '
+                    %}
+                    {% assign pdfUrl = 'https://cdn.shopify.com/s/files/1/0643/2381/3566/files/'
+                      | append: orderNumber
+                      | append: '.pdf'
+                    %}
+
+                    {% if pdfUrl | asset_url | file_exists %}
+                      <a href="{{ pdfUrl }}">Téléchargez votre facture</a>
+                    {% else %}
+                      Facture en cours d'émission
+                    {% endif %}
+
+                    {% comment %} <a href="https://cdn.shopify.com/s/files/1/0643/2381/3566/files/{{ 'customer.orders.order_number_link' | t: number: order.name | remove: "Order number "}}.pdf">Téléchargez votre facture </a> {% endcomment %}
                     {% comment %} https://cdn.shopify.com/s/files/1/0643/2381/3566/files/PNG_Mock-Up.jpg {% endcomment %}
                   </td>
                   <td headers="RowOrder ColumnDate" role="cell" data-label="{{ 'customer.orders.date' | t }}">
