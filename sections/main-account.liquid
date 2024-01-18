@@ -74,7 +74,7 @@
                     {% if pdfUrl | asset_url | file_exists %}
                       <a href="{{ pdfUrl }}">Téléchargez votre facture</a>
                     {% else %}
-                      Facture en cours d'émission
+                      Facture en cours de création
                     {% endif %}
 
                     {% comment %} <a href="https://cdn.shopify.com/s/files/1/0643/2381/3566/files/{{ 'customer.orders.order_number_link' | t: number: order.name | remove: "Order number "}}.pdf">Téléchargez votre facture </a> {% endcomment %}
