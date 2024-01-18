@@ -63,7 +63,7 @@
                     </a>
                     HELLO ??
 
-                    {% comment %} Custom Facture avec Fichier Shopify {% endcomment %}
+                    {% comment %} Custom Facture avec Fichier Shopify
                     {% assign orderNumber = order.name | remove: 'Order number #' %}
                     {% assign pdfUrl = 'https://cdn.shopify.com/s/files/1/0643/2381/3566/files/'
                       | append: orderNumber
@@ -74,7 +74,7 @@
                       <a href="{{ pdfUrl }}">Téléchargez votre facture</a>
                     {% else %}
                       Facture en cours de création
-                    {% endif %}
+                    {% endif %} {% endcomment %}
                   </td>
                   <td headers="RowOrder ColumnDate" role="cell" data-label="{{ 'customer.orders.date' | t }}">
                     {{ order.created_at | time_tag: format: 'date' }}
