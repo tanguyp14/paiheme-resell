@@ -61,19 +61,33 @@
                     >
                       {{ order.name }}
                     </a>
+
                     {% comment %} Custom Facture avec Fichier Shopify {% endcomment %}
-                    
                     {% assign orderNumber = order.name | remove: 'Order number #' %}
-                    {% assign pdfUrl = 'https://cdn.shopify.com/s/files/1/0643/2381/3566/files/' | append: orderNumber | append: '.pdf' %}
-                    
+                    {% assign pdfUrl = 'https://cdn.shopify.com/s/files/1/0643/2381/3566/files/'
+                      | append: orderNumber
+                      | append: '.pdf'
+                    %}
+
+                    <!-- Placeholder initial pour le texte "Facture en cours de création" -->
+                    <span id="factureText">Chargement des fichiers</span>
+                    <a id="downloadLink" style="display: none;">Téléchargez votre facture</a>
+
                     <script>
                       var pdfUrl = '{{ pdfUrl }}';
-                    
+
                       function redirectToInvoice() {
                         window.location.href = pdfUrl;
                       }
-                    
+
                       function checkLink() {
+                        if (pdfUrl.length === 0) {
+                          // Si l'URL du fichier PDF n'est pas correcte, afficher un message
+                          var factureText = document.getElementById('factureText');
+                          factureText.innerHTML = "Erreur dans la construction de l'URL du fichier PDF";
+                          return;
+                        }
+
                         var xhr = new XMLHttpRequest();
                         xhr.open('HEAD', pdfUrl, true);
                         xhr.onreadystatechange = function () {
@@ -84,21 +98,16 @@
                             } else {
                               // Si le fichier n'existe pas, afficher un message
                               var factureText = document.getElementById('factureText');
-                              factureText.innerHTML = "Facture en cours de création";
+                              factureText.innerHTML = 'Facture en cours de création';
                             }
                           }
                         };
                         xhr.send();
                       }
-                    
+
                       // Appeler la fonction de vérification lorsque la page est chargée
                       window.onload = checkLink;
                     </script>
-                    
-                    <!-- Placeholder initial pour le texte "Facture en cours de création" -->
-                    <span id="factureText">Chargement des fichiers</span>
-                    <a id="downloadLink" style="display: none;">Téléchargez votre facture</a>
-                    
                   </td>
                   <td headers="RowOrder ColumnDate" role="cell" data-label="{{ 'customer.orders.date' | t }}">
                     {{ order.created_at | time_tag: format: 'date' }}
