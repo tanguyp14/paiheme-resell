@@ -75,6 +75,7 @@
 
                     {% comment %} Custom Facture avec Fichier Shopify {% endcomment %}
                     {% assign orderNumber = order.name | remove: 'Order number #' %}
+                    {{ orderNumber }}
                     {% assign pdfUrl = 'https://cdn.shopify.com/s/files/1/0643/2381/3566/files/'
                       | append: orderNumber
                       | append: '.pdf'
