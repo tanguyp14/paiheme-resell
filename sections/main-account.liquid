@@ -61,36 +61,56 @@
                     >
                       {{ order.name }}
                     </a>
+                    {% comment %} Custom Facture avec Fichier Shopify {% endcomment %}
 
-                    {% assign orderNumber = 'customer.orders.order_number_link' | t: number: order.name | remove: "Order number " %}
-                    {% assign pdfUrl = "https://cdn.shopify.com/s/files/1/0643/2381/3566/files/" | append: orderNumber | append: ".pdf" %}
-                    
-                    <a id="downloadLink" href="{{ pdfUrl }}">Téléchargez votre facture</a>
-                    
+                    {% assign orderNumber = 'customer.orders.order_number_link'
+                      | t: number: order.name
+                      | remove: 'Order number '
+                    %}
+                    {% assign pdfUrl = 'https://cdn.shopify.com/s/files/1/0643/2381/3566/files/'
+                      | append: orderNumber
+                      | append: '.pdf'
+                    %}
+
                     <script>
-                      var downloadLink = document.getElementById("downloadLink");
-                      var pdfUrl = "{{ pdfUrl }}";
-                    
+                      var pdfUrl = '{{ pdfUrl }}';
+
                       // Fonction pour vérifier si le lien conduit à une 404
                       function checkLink() {
                         var xhr = new XMLHttpRequest();
-                        xhr.open("GET", pdfUrl, true);
+                        xhr.open('GET', pdfUrl, true);
                         xhr.onreadystatechange = function () {
                           if (xhr.readyState == 4) {
                             if (xhr.status == 404) {
-                              // Si le lien conduit à une erreur 404, changer le texte du lien
-                              downloadLink.innerHTML = "Facture en cours d'émission";
-                              downloadLink.removeAttribute("href");
+                              // Si le lien conduit à une erreur 404, créer le texte "Facture en cours d'émission"
+                              var factureText = document.createTextNode("Facture en cours d'émission");
+
+                              // Remplacer le lien par le texte
+                              var downloadLink = document.getElementById('downloadLink');
+                              downloadLink.parentNode.replaceChild(factureText, downloadLink);
+                            } else {
+                              // Sinon, le lien est valide, créer le lien de téléchargement
+                              var a = document.createElement('a');
+                              var linkText = document.createTextNode('Téléchargez votre facture');
+                              a.appendChild(linkText);
+                              a.title = 'Téléchargez votre facture';
+                              a.href = pdfUrl;
+
+                              // Remplacer le texte par le lien
+                              var factureText = document.getElementById('factureText');
+                              factureText.parentNode.replaceChild(a, factureText);
                             }
                           }
                         };
                         xhr.send();
                       }
-                    
+
                       // Appeler la fonction de vérification lorsque la page est chargée
                       window.onload = checkLink;
                     </script>
-                    
+
+                    <!-- Placeholder initial pour le texte "Facture en cours d'émission" -->
+                    <span id="factureText">Facture en cours d'émission</span>
 
                     {% comment %} <a href="https://cdn.shopify.com/s/files/1/0643/2381/3566/files/{{ 'customer.orders.order_number_link' | t: number: order.name | remove: "Order number "}}.pdf">Téléchargez votre facture </a> {% endcomment %}
                     {% comment %} https://cdn.shopify.com/s/files/1/0643/2381/3566/files/PNG_Mock-Up.jpg {% endcomment %}
