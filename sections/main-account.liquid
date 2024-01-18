@@ -1,36 +1,4 @@
 {{ 'customer.css' | asset_url | stylesheet_tag }}
-<script>
-  function checkFileExists(orderNumber, downloadLinkSelector, creationMessageSelector, errorCallback) {
-    var pdfUrl = 'https://cdn.shopify.com/s/files/1/0643/2381/3566/files/' + orderNumber + '.pdf';
-    var downloadLink = document.querySelector(downloadLinkSelector);
-    var creationMessage = document.querySelector(creationMessageSelector);
-
-    function checkFile(url, callback, errorCallback) {
-      var xhr = new XMLHttpRequest();
-      xhr.open('HEAD', url, true);
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4) {
-          if (xhr.status == 200) {
-            callback(true);
-          } else {
-            errorCallback();
-          }
-        }
-      };
-      xhr.send();
-    }
-
-    checkFile(pdfUrl, function(exists) {
-      if (exists) {
-        downloadLink.style.display = 'block';
-      } else {
-        creationMessage.style.display = 'block';
-      }
-    }, function() {
-      // Gérer l'erreur sans afficher de message dans la console
-    });
-  }
-</script>
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -94,7 +62,6 @@
                       {{ order.name }}
                     </a>
 
-                    {% comment %}
                       Custom Facture avec Fichier Shopify
                       {% assign orderNumber = order.name | remove: 'Order number #' %}
                       {% assign pdfUrl = 'https://cdn.shopify.com/s/files/1/0643/2381/3566/files/'
@@ -103,16 +70,7 @@
                       %}
 
                       <a href="{{ pdfUrl }}">Téléchargez votre facture</a>
-                    {% endcomment %}
-                    
-                          <a href="#" class="download-link">Téléchargez votre facture</a>
-                          <p class="creation-message" style="display: none;">Facture en cours d'édition</p>
-                    
-                          <script>
-                            checkFileExists('{{ order.name | remove: "#" }}', '.download-link', '.creation-message', function() {
-                              console.log('LE FICHIER NEXISTE PAS');
-                            });
-                          </script>
+                  
                     
                     
 
