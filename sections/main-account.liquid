@@ -62,20 +62,35 @@
                       {{ order.name }}
                     </a>
 
-                    {% assign orderNumber = 'customer.orders.order_number_link'
-                      | t: number: order.name
-                      | remove: 'Order number '
-                    %}
-                    {% assign pdfUrl = 'https://cdn.shopify.com/s/files/1/0643/2381/3566/files/'
-                      | append: orderNumber
-                      | append: '.pdf'
-                    %}
-
-                    {% if pdfUrl | asset_url | file_exists %}
-                      <a href="{{ pdfUrl }}">Téléchargez votre facture</a>
-                    {% else %}
-                      Facture en cours d'émission
-                    {% endif %}
+                    {% assign orderNumber = 'customer.orders.order_number_link' | t: number: order.name | remove: "Order number " %}
+                    {% assign pdfUrl = "https://cdn.shopify.com/s/files/1/0643/2381/3566/files/" | append: orderNumber | append: ".pdf" %}
+                    
+                    <a id="downloadLink" href="{{ pdfUrl }}">Téléchargez votre facture</a>
+                    
+                    <script>
+                      var downloadLink = document.getElementById("downloadLink");
+                      var pdfUrl = "{{ pdfUrl }}";
+                    
+                      // Fonction pour vérifier si le lien conduit à une 404
+                      function checkLink() {
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("GET", pdfUrl, true);
+                        xhr.onreadystatechange = function () {
+                          if (xhr.readyState == 4) {
+                            if (xhr.status == 404) {
+                              // Si le lien conduit à une erreur 404, changer le texte du lien
+                              downloadLink.innerHTML = "Facture en cours d'émission";
+                              downloadLink.removeAttribute("href");
+                            }
+                          }
+                        };
+                        xhr.send();
+                      }
+                    
+                      // Appeler la fonction de vérification lorsque la page est chargée
+                      window.onload = checkLink;
+                    </script>
+                    
 
                     {% comment %} <a href="https://cdn.shopify.com/s/files/1/0643/2381/3566/files/{{ 'customer.orders.order_number_link' | t: number: order.name | remove: "Order number "}}.pdf">Téléchargez votre facture </a> {% endcomment %}
                     {% comment %} https://cdn.shopify.com/s/files/1/0643/2381/3566/files/PNG_Mock-Up.jpg {% endcomment %}
