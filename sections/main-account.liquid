@@ -1,27 +1,4 @@
 {{ 'customer.css' | asset_url | stylesheet_tag }}
-<script>
-  function checkFileExists(url, callback) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('HEAD', url, true);
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState == 4) {
-        callback(xhr.status == 200);
-      }
-    };
-    xhr.send();
-  }
-
-  checkFileExists('{{ pdfUrl }}', function(exists) {
-    var downloadLink = document.querySelector('.download-link');
-    var creationMessage = document.querySelector('.creation-message');
-
-    if (exists) {
-      downloadLink.style.display = 'block';
-    } else {
-      creationMessage.style.display = 'block';
-    }
-  });
-</script>
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -227,3 +204,27 @@
   ]
 }
 {% endschema %}
+
+<script>
+  function checkFileExists(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('HEAD', url, true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4) {
+        callback(xhr.status == 200);
+      }
+    };
+    xhr.send();
+  }
+
+  checkFileExists('{{ pdfUrl }}', function(exists) {
+    var downloadLink = document.querySelector('.download-link');
+    var creationMessage = document.querySelector('.creation-message');
+
+    if (exists) {
+      downloadLink.style.display = 'block';
+    } else {
+      creationMessage.style.display = 'block';
+    }
+  });
+</script>
