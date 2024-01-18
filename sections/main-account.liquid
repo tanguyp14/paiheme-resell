@@ -104,10 +104,11 @@
                         } else {
                           creationMessage.style.display = 'block';
                           downloadLink.style.display = 'none';
-
                         }
                       });
                     </script>
+
+                    
                   </td>
                   <td headers="RowOrder ColumnDate" role="cell" data-label="{{ 'customer.orders.date' | t }}">
                     {{ order.created_at | time_tag: format: 'date' }}
