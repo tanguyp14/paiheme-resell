@@ -83,7 +83,7 @@
                     <a href="{{ pdfUrl }}" class="download-link">Téléchargez votre facture</a>
                     <p class="creation-message" style="display: none;">Facture en cours d'édition</p>
 
-                    
+
                   </td>
                   <td headers="RowOrder ColumnDate" role="cell" data-label="{{ 'customer.orders.date' | t }}">
                     {{ order.created_at | time_tag: format: 'date' }}
@@ -218,14 +218,18 @@
     xhr.send();
   }
 
-  checkFileExists('{{ pdfUrl }}', function(exists) {
+  document.addEventListener('DOMContentLoaded', function() {
+    var pdfUrl = '{{ pdfUrl }}';
     var downloadLink = document.querySelector('.download-link');
     var creationMessage = document.querySelector('.creation-message');
 
-    if (exists) {
-      downloadLink.style.display = 'block';
-    } else {
-      creationMessage.style.display = 'block';
-    }
+    checkFileExists(pdfUrl, function(exists) {
+      if (exists) {
+        downloadLink.style.display = 'block';
+      } else {
+        creationMessage.style.display = 'block';
+      }
+    });
   });
 </script>
+
