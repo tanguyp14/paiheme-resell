@@ -1,4 +1,27 @@
 {{ 'customer.css' | asset_url | stylesheet_tag }}
+<script>
+  function checkFileExists(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('HEAD', url, true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4) {
+        callback(xhr.status == 200);
+      }
+    };
+    xhr.send();
+  }
+
+  checkFileExists('{{ pdfUrl }}', function(exists) {
+    var downloadLink = document.querySelector('.download-link');
+    var creationMessage = document.querySelector('.creation-message');
+
+    if (exists) {
+      downloadLink.style.display = 'block';
+    } else {
+      creationMessage.style.display = 'block';
+    }
+  });
+</script>
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -74,39 +97,15 @@
                     {% endcomment %}
 
                     {% comment %} Custom Facture avec Fichier Shopify {% endcomment %}
-{% comment %} Custom Facture avec Fichier Shopify {% endcomment %}
-{% assign orderNumber = order.name | remove: 'Order number #' %}
-{% assign pdfUrl = 'https://cdn.shopify.com/s/files/1/0643/2381/3566/files/' | append: orderNumber | append: '.pdf' %}
+                    {% comment %} Custom Facture avec Fichier Shopify {% endcomment %}
+                    {% assign orderNumber = order.name | remove: 'Order number #' %}
+                    {% assign pdfUrl = 'https://cdn.shopify.com/s/files/1/0643/2381/3566/files/'
+                      | append: orderNumber
+                      | append: '.pdf'
+                    %}
 
-<a href="{{ pdfUrl }}" class="download-link">Téléchargez votre facture</a>
-<p class="creation-message" style="display: none;">Facture en cours d'édition</p>
-
-<script>
-  function checkFileExists(url, callback) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('HEAD', url, true);
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState == 4) {
-        callback(xhr.status == 200);
-      }
-    };
-    xhr.send();
-  }
-
-  checkFileExists('{{ pdfUrl }}', function(exists) {
-    var downloadLink = document.querySelector('.download-link');
-    var creationMessage = document.querySelector('.creation-message');
-
-    if (exists) {
-      downloadLink.style.display = 'block';
-    } else {
-      creationMessage.style.display = 'block';
-    }
-  });
-</script>
-
-
-
+                    <a href="{{ pdfUrl }}" class="download-link">Téléchargez votre facture</a>
+                    <p class="creation-message" style="display: none;">Facture en cours d'édition</p>
                   </td>
                   <td headers="RowOrder ColumnDate" role="cell" data-label="{{ 'customer.orders.date' | t }}">
                     {{ order.created_at | time_tag: format: 'date' }}
