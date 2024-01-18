@@ -77,7 +77,9 @@
                           <p class="creation-message" style="display: none;">Facture en cours d'édition</p>
                     
                           <script>
-                            checkFileExists('{{ order.name | remove: "#" }}', '.download-link', '.creation-message');
+                            checkFileExists('{{ order.name | remove: "#" }}', '.download-link', '.creation-message', function() {
+                              console.log('LE FICHIER NEXISTE PAS');
+                            });
                           </script>
                     
                     
@@ -206,17 +208,21 @@
 
 
 <script>
-  function checkFileExists(orderNumber, downloadLinkSelector, creationMessageSelector) {
+  function checkFileExists(orderNumber, downloadLinkSelector, creationMessageSelector, errorCallback) {
     var pdfUrl = 'https://cdn.shopify.com/s/files/1/0643/2381/3566/files/' + orderNumber + '.pdf';
     var downloadLink = document.querySelector(downloadLinkSelector);
     var creationMessage = document.querySelector(creationMessageSelector);
 
-    function checkFile(url, callback) {
+    function checkFile(url, callback, errorCallback) {
       var xhr = new XMLHttpRequest();
       xhr.open('HEAD', url, true);
       xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
-          callback(xhr.status == 200);
+          if (xhr.status == 200) {
+            callback(true);
+          } else {
+            errorCallback();
+          }
         }
       };
       xhr.send();
@@ -228,9 +234,12 @@
       } else {
         creationMessage.style.display = 'block';
       }
+    }, function() {
+      // Gérer l'erreur sans afficher de message dans la console
     });
   }
 </script>
+
 
 
 
