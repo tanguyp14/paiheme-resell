@@ -63,18 +63,13 @@
                     </a>
 
                     {% comment %} Custom Facture avec Fichier Shopify {% endcomment %}
-                      {% assign orderNumber = order.name | remove: 'Order number #' %}
-                      {% assign pdfUrl = 'https://cdn.shopify.com/s/files/1/0643/2381/3566/files/'
-                        | append: orderNumber
-                        | append: '.pdf'
-                      %}
+                    {% assign orderNumber = order.name | remove: 'Order number #' %}
+                    {% assign pdfUrl = 'https://cdn.shopify.com/s/files/1/0643/2381/3566/files/'
+                      | append: orderNumber
+                      | append: '.pdf'
+                    %}
 
-                      {% if pdfUrl | asset_url | file_exists %}
-                        <a href="{{ pdfUrl }}">Téléchargez votre facture</a>
-                      {% else %}
-                        Facture en cours de création
-                      {% endif %}
-
+                    <a href="{{ pdfUrl }}">Téléchargez votre facture</a>
 
                     
                   </td>
