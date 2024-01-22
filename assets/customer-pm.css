@@ -4,11 +4,11 @@
     font-style: italic;
     box-shadow: 0 0 0 0.1rem rgba(var(--color-link),.2);
     border: 0.1rem solid transparent;
-    font-size: 0.7rem;
+    font-size: 1.2rem;
    
     width: fit-content;
     margin-bottom: 0;
 }
-.wait .no{
+.wait.no{
     background-color: lightgray;
 }
