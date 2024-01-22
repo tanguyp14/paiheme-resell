@@ -6,4 +6,6 @@
     border: 0.1rem solid transparent;
     font-size: 0.7rem;
     background-color: lightgray;
+    width: fit-content;
+    margin-bottom: 0;
 }
