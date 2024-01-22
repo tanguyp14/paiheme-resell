@@ -64,12 +64,13 @@
 
                       {% comment %} Custom Facture avec Fichier Shopify {% endcomment %}
                       {% assign orderNumber = order.name | remove: '#' %}
-                      {% assign pdfUrl = 'https://cdn.shopify.com/s/files/1/0643/2381/3566/files/'
-                        | append: orderNumber
-                        | append: '.pdf'
-                      %}
-
-                      <a href="{{ pdfUrl }}">Téléchargez votre facture</a>
+                      {% assign pdfUrl = 'https://cdn.shopify.com/s/files/1/0643/2381/3566/files/' | append: orderNumber | append: '.pdf' %}
+                      
+                      {% if order.tags contains 'Facture' %}
+                        <a href="{{ pdfUrl }}">Téléchargez votre facture</a>
+                      {% else %}
+                        <p>La commande n'a pas la balise "Facture". Affichez le A ici.</p>
+                      {% endif %}
                   
                     
                     
