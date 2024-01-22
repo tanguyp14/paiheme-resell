@@ -68,9 +68,9 @@
                       {% assign pdfUrl = 'https://cdn.shopify.com/s/files/1/0643/2381/3566/files/' | append: orderNumber | append: '.pdf' %}
                       
                       {% if order.tags contains 'facture' %}
-                        <a href="{{ pdfUrl }}">Téléchargez votre facture</a>
+                        <a class="wait" href="{{ pdfUrl }}">Téléchargez votre facture</a>
                       {% else %}
-                        <span class="wait">Facture en cours d'emmisson</span>
+                        <span class="wait no">Facture en cours d'emmisson</span>
                       {% endif %}
                   
                     
