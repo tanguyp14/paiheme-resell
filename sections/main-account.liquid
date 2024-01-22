@@ -71,6 +71,10 @@
                       {% else %}
                         <p>Facture en cours d'emmisson</p>
                       {% endif %}
+
+                      {% for tag in order.tags %}
+                        <p>{{ tag }}</p>
+                      {% endfor %}
                   
                     
                     
