@@ -1,4 +1,5 @@
 {{ 'customer.css' | asset_url | stylesheet_tag }}
+{{ 'customer-pm.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -69,7 +70,7 @@
                       {% if order.tags contains 'facture' %}
                         <a href="{{ pdfUrl }}">Téléchargez votre facture</a>
                       {% else %}
-                        <p>Facture en cours d'emmisson</p>
+                        <p class="wait">Facture en cours d'emmisson</p>
                       {% endif %}
                   
                     
