@@ -68,9 +68,9 @@ padding-bottom: {{ section.settings.padding_bottom }}px;
               %}
 
               {% if order.tags contains 'facture' %}
-              <a href="{{ pdfUrl }}"><span>Téléchargez votre facture</span></a>
+              <a href="{{ pdfUrl }}"><span class="Net">Téléchargez votre facture</span></a>
               {% else %}
-              <span>Facture en cours d'édition</span>
+              <span class="Net Edit">Facture en cours d'édition</span>
               {% endif %}
             </td>
             <td headers="RowOrder ColumnDate" role="cell" data-label="{{ 'customer.orders.date' | t }}">
