@@ -9,7 +9,7 @@ a.wait {
     text-align: center;
 }
 
-a.wait.no {
+span.wait.no {
     background-color: lightgray;
     font-style: italic;
 }
