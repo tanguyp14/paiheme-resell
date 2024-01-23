@@ -2,6 +2,9 @@
     .customer tbody td {
         vertical-align: middle;
     }
+    .customer tbody {
+        align-items: center;
+    }
 }
 .customer tbody td .NetLink{
     text-decoration: none;
