@@ -68,7 +68,7 @@ padding-bottom: {{ section.settings.padding_bottom }}px;
               %}
 
               {% if order.tags contains 'facture' %}
-              <a href="{{ pdfUrl }}"><span class="Net">Téléchargez votre facture</span></a>
+              <a class="NetLink" href="{{ pdfUrl }}"><span class="Net">Téléchargez votre facture</span></a>
               {% else %}
               <span class="Net Edit">Facture en cours d'édition</span>
               {% endif %}

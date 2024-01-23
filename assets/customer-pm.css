@@ -3,7 +3,12 @@
         vertical-align: middle;
     }
 }
-
+.customer tbody td .NetLink{
+    text-decoration: none;
+    border: 1px solid lightgrey;
+    text-align: center;
+    padding: 10px;
+}
 .customer tbody td .Net{
     font-size: 1.2rem;
 }
