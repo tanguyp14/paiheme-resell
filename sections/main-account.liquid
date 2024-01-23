@@ -59,7 +59,7 @@ padding-bottom: {{ section.settings.padding_bottom }}px;
                 {{ order.name }}
               </a>
             </td>
-            <td class="net" role="cell" headers="ColumnOrder_facture" data-label="Facture">
+            <td id="RowOrder ColumnNet" role="cell" headers="ColumnOrder_facture" data-label="Facture">
               {% comment %} Custom Facture avec Fichier Shopify {% endcomment %}
               {% assign orderNumber = order.name | remove: '#' %}
               {% assign pdfUrl = 'https://cdn.shopify.com/s/files/1/0643/2381/3566/files/'
