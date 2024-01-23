@@ -2,9 +2,12 @@
     .customer tbody td {
         vertical-align: middle;
     }
-    .customer tbody {
-        align-items: center;
-    }
+}
+
+@media screen and (max-width: 749px){
+.customer td {
+    align-items: center;
+}
 }
 .customer tbody td .NetLink{
     text-decoration: none;
