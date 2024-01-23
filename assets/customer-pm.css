@@ -1,7 +1,7 @@
-.wait{
+.wait {
     padding: 1.1rem 1.5rem;
     text-decoration: none;
-    box-shadow: 0 0 0 0.1rem rgba(var(--color-link),.2);
+    box-shadow: 0 0 0 0.1rem rgba(var(--color-link), .2);
     border: 0.1rem solid transparent;
     font-size: 1.2rem;
     width: fit-content;
@@ -9,11 +9,13 @@
     min-width: 200px;
     text-align: center;
 }
-.wait.no{
+
+.wait.no {
     background-color: lightgray;
     font-style: italic;
 }
-#RowOrder{
-    gap: 5px;
 
+#RowOrder {
+    gap: 5px;
+    display: flex;
 }
