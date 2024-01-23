@@ -64,7 +64,7 @@
                       {{ order.name }}
                     </a>
                   </td>
-                  <td>
+                  <td class="net">
                     {% comment %} Custom Facture avec Fichier Shopify {% endcomment %}
                     {% assign orderNumber = order.name | remove: '#' %}
                     {% assign pdfUrl = 'https://cdn.shopify.com/s/files/1/0643/2381/3566/files/'
