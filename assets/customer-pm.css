@@ -1,4 +1,4 @@
-a .wait {
+a.wait {
     padding: 1.1rem 1.5rem;
     text-decoration: none;
     box-shadow: 0 0 0 0.1rem rgba(var(--color-link), .2);
@@ -9,7 +9,7 @@ a .wait {
     text-align: center;
 }
 
-a .wait.no {
+a.wait.no {
     background-color: lightgray;
     font-style: italic;
 }
