@@ -6,8 +6,7 @@
 
 .customer tbody td .Net{
     font-size: 1.2rem;
-    font-style: italic;
 }
 .customer tbody td .Net.Edit{
-    font-style: normal;
+    font-style: italic;
 }
