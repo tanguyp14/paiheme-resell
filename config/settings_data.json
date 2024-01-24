@@ -182,6 +182,16 @@
         "disabled": true,
         "settings": {
         }
+      },
+      "11989592277864780042": {
+        "type": "shopify:\/\/apps\/wholesale-pricing-discount\/blocks\/app-embed\/94cbfa01-7191-4bb2-bcd8-b519b9b3bd06",
+        "disabled": false,
+        "settings": {
+          "showCrossOutPrice": true,
+          "priceColor": "#000000",
+          "crossOutPriceColor": "#E9330C",
+          "appProxy": "\/apps\/wpdapp"
+        }
       }
     },
     "color_schemes": {
