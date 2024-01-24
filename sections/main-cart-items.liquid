@@ -109,18 +109,22 @@
                           <span class="visually-hidden">
                             {{ 'products.product.price.regular_price' | t }}
                           </span>
-                          <s class="cart-item__old-price product-option">
+                          <s class="cart-item__old-price product-option data-wpd-hide">
                             {{- item.original_price | money -}}
                           </s>
                           <span class="visually-hidden">
                             {{ 'products.product.price.sale_price' | t }}
                           </span>
-                          <strong class="cart-item__final-price product-option">
+                          <strong class="cart-item__final-price product-option"
+                            data-wpd-cart-variant-id="{{ item.variant.id }}"                                
+                            data-wpd-cart-item="{{ item.key }}">
                             {{ item.final_price | money }}
                           </strong>
                         </div>
                       {%- else -%}
-                        <div class="product-option">
+                        <div class="product-option"
+                          data-wpd-cart-variant-id="{{ item.variant.id }}"                                
+                          data-wpd-cart-item="{{ item.key }}">
                           {{ item.original_price | money }}
                         </div>
                       {%- endif -%}
@@ -395,19 +399,25 @@
                               {{ 'products.product.price.regular_price' | t }}
                             </dt>
                             <dd>
-                              <s class="cart-item__old-price price price--end">
+                              <s class="cart-item__old-price price price--end data-wpd-hide">
                                 {{ item.original_line_price | money }}
                               </s>
                             </dd>
                             <dt class="visually-hidden">
                               {{ 'products.product.price.sale_price' | t }}
                             </dt>
-                            <dd class="price price--end">
+                            <dd class="price price--end"
+                                data-wpd-cart-variant-id="{{ item.variant.id }}"   
+                                data-wpd-cart-item="{{ item.key }}"                                
+                                data-wpd-cart-line-price>
                               {{ item.final_line_price | money }}
                             </dd>
                           </dl>
                         {%- else -%}
-                          <span class="price price--end">
+                          <span class="price price--end" 
+                          data-wpd-cart-variant-id="{{ item.variant.id }}"   
+                          data-wpd-cart-item="{{ item.key }}"                                
+                          data-wpd-cart-line-price>
                             {{ item.original_line_price | money }}
                           </span>
                         {%- endif -%}
