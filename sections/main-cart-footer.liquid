@@ -61,7 +61,7 @@
               <div class="totals">
               <h2 class="totals__total">{{ 'sections.cart.estimated_total' | t }}</h2>
               <p class="totals__total-value"><span class="wcp-original-cart-total">{{ cart.total_price | money_with_currency }}</span>
-              <span class="wcp-cart-total"></span></p>
+              <span class="wcp-cart-total" wcp='' ></span></p>
               </div>
               
               <div class="additional-notes">
@@ -147,6 +147,75 @@
     });
   });
 </script>
+
+{% assign wcp_wholesale_customer = false %}
+{% if shop.metafields.wcp_status.wcp_status != 'disabled' and customer %}
+{% assign active_discounts = shop.metafields.wcp_active_discounts.wcp_active_discounts %}
+{% assign active_discounts_array = active_discounts | split: ',' %}
+{% assign customer_tags = blank %}
+{% for tag in customer.tags %}
+{% assign tempTag = tag | downcase %}
+{% assign customer_tags = customer_tags | prepend:tempTag %}
+{% unless forloop.last %}
+{% assign customer_tags = customer_tags | prepend:','  %}
+{% endunless %}
+{% endfor %}
+{% assign customer_tags = customer_tags | split:',' %}
+{% assign active_discounts = active_discounts | downcase %}
+{% for discount_key in active_discounts_array %}
+{% assign key_split = discount_key | split: '-' %}
+{% assign key_split_length = key_split | size %}
+{% if key_split_length > 2 %}
+{% assign removeable_key = key_split.last | prepend: '-' %}
+{% assign wcp_customer_tag = discount_key | remove_last: removeable_key %}
+{% else %}
+{% assign wcp_customer_tag = key_split[0] %}
+{% endif %}
+{% assign wcp_customer_tag = wcp_customer_tag | downcase %}
+{% if customer_tags contains wcp_customer_tag %}
+{% assign wcp_wholesale_customer = true %}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if wcp_wholesale_customer == true %}
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      var intver = setInterval(function(){
+        if(window.wcp_data == undefined || window.wcp_data.discounted_hash == undefined) {return;}
+            if(document.querySelector('.wcp-minimums-note').innerHTML != ""){
+              document.querySelectorAll('.wcp-cart-total').forEach(function (element) {
+                  element.style.display="none";
+              });
+            
+              document.querySelectorAll('.wcp-original-cart-total').forEach(function (element) {
+                      element.innerHTML= wpdFormatePrice(parseFloat(window.wcp_data.discounted_hash.Without_Formatted_original_total) * 100);
+                  }); 
+              document.querySelectorAll('.wcp-net-cart-total').forEach(function (element) {
+                       element.innerHTML= wpdFormatePrice(parseFloat(window.wcp_data.discounted_hash.wcp_total) * 100);                    
+                  });
+              document.querySelectorAll('.wcp-cart-total').forEach(function (element) {
+                      element.innerHTML= wpdFormatePrice(parseFloat(window.wcp_data.discounted_hash.wcp_total) * 100);       
+                  });
+              clearInterval(intver); 
+            }else{   
+              if(document.querySelector('.wcp-cart-total').getAttribute('wcp') == ""){          
+                  document.querySelectorAll('.wcp-cart-total').forEach(function (element) {
+                      element.getAttribute('wcp',document.querySelector('.wcp-cart-total').innerHTML.replace('$',""));
+                  });        		
+                  document.querySelectorAll('.wcp-cart-total').forEach(function (element) {
+                       element.innerHTML= wpdFormatePrice(parseFloat(window.wcp_data.discounted_hash.wcp_total) * 100);         
+                  });
+                  document.querySelectorAll('.wcp-original-cart-total').forEach(function (element) {
+                      element.innerHTML= wpdFormatePrice(parseFloat(window.wcp_data.discounted_hash.Without_Formatted_original_total) * 100);
+                  });        		         
+                clearInterval(intver);                          
+              }
+            }
+            
+      },2500);  
+      }, false);
+</script>	
+{% endif %}
 
 {% schema %}
 {
