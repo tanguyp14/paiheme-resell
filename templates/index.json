@@ -20,7 +20,7 @@
           "type": "button",
           "settings": {
             "button_label": "Se connecter",
-            "button_link": "\/login",
+            "button_link": "\/account\/login",
             "button_style_secondary": false,
             "button_label_2": "Demander à devenir revendeur",
             "button_link_2": "shopify:\/\/pages\/wholesale-registration-form",
