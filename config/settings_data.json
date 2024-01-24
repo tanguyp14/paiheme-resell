@@ -177,12 +177,6 @@
 
     ],
     "blocks": {
-      "5163884144194077907": {
-        "type": "shopify:\/\/apps\/sami-b2b-lock\/blocks\/app-embed\/8d86a3b4-97b3-44ab-adc1-ec01c5a89da9",
-        "disabled": true,
-        "settings": {
-        }
-      },
       "11989592277864780042": {
         "type": "shopify:\/\/apps\/wholesale-pricing-discount\/blocks\/app-embed\/94cbfa01-7191-4bb2-bcd8-b519b9b3bd06",
         "disabled": false,
@@ -191,6 +185,12 @@
           "priceColor": "#000000",
           "crossOutPriceColor": "#E9330C",
           "appProxy": "\/apps\/wpdapp"
+        }
+      },
+      "5163884144194077907": {
+        "type": "shopify:\/\/apps\/sami-b2b-lock\/blocks\/app-embed\/8d86a3b4-97b3-44ab-adc1-ec01c5a89da9",
+        "disabled": false,
+        "settings": {
         }
       }
     },
