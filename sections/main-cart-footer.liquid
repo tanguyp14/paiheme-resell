@@ -58,10 +58,16 @@
                   {%- endif -%}
                 </div>
 
-                <div class="totals">
-                  <h2 class="totals__total">{{ 'sections.cart.estimated_total' | t }}</h2>
-                  <p class="totals__total-value">{{ cart.total_price | money_with_currency }}</p>
-                </div>
+              <div class="totals">
+              <h2 class="totals__total">{{ 'sections.cart.estimated_total' | t }}</h2>
+              <p class="totals__total-value"><span class="wcp-original-cart-total">{{ cart.total_price | money_with_currency }}</span>
+              <span class="wcp-cart-total"></span></p>
+              </div>
+              
+              <div class="additional-notes">
+              <span class="wcp-minimums-note"></span>
+              <span class="wcp-extra-note "></span>
+              </div>{% render "wcp_multi_currency_msg" %} 
 
                 <small class="tax-note caption-large rte">
                   {%- if cart.taxes_included and shop.shipping_policy.body != blank -%}
@@ -106,6 +112,16 @@
         {% endfor %}
 
         <div id="cart-errors"></div>
+
+        {% if customer.tags contains 'wpdnet' %}
+{% if shop.metafields.wcp_net.isNetEnabled == 'true' or shop.metafields.wcp_net.isNetEnabled == '1' %}
+<div style="margin-top:30px;display:none" id="wpdNetContainer">
+<p>{{shop.metafields.wcp_net.netCartMsg}}</p>
+<button id="wcp-30-open" class="button"> {{shop.metafields.wcp_net.netBtnMsg}}</button>
+</div>
+{% endif %}
+{% endif %}
+
       </div>
     </div>
   </div>
