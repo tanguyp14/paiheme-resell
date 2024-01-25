@@ -171,6 +171,14 @@
         ],
         "settings": {
         }
+      },
+      "wsg-registration-settings": {
+        "type": "wsg-registration-settings",
+        "settings": {
+          "page-title": "Ouvrir un compte Revendeur",
+          "description": "",
+          "custom-html": ""
+        }
       }
     },
     "content_for_index": [
