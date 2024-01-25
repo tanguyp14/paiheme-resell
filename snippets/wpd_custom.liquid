@@ -1,3 +1,12 @@
+{% if canonical_url contains '/cart' %}
+
 <script>
-  console.log("wpdNetMainContainer")
+  const wpdCheckoutBtn = document.getElementById("wpdNetMainContainer");
+  const wpdNetMainContainer = document.getElementById("wpdNetMainContainer");
+wpdCheckoutBtn.addEventListener('click', ()=>{
+  wpdNetMainContainer.style.display = "block";
+})
+  
 </script>
+
+{% endif %}  
