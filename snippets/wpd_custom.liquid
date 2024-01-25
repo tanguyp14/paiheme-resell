@@ -3,10 +3,14 @@
 <script>
   const wpdCheckoutBtn = document.getElementById("wcp-30-open");
   const wpdNetMainContainer = document.getElementById("wpdNetMainContainer");
-wpdCheckoutBtn.addEventListener('click', ()=>{
-  wpdNetMainContainer.style.display = "block";
-})
+  const wpdCancel = document.getElementById("wpdCloseNetPopup")
   
+  wpdCheckoutBtn.addEventListener('click', ()=>{
+  wpdNetMainContainer.style.display = "block";
+  })
+    wpdCancel.addEventListener('click', ()=>{
+  wpdNetMainContainer.style.display = "none";
+  })
 </script>
 
 {% endif %}  
